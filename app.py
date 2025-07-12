@@ -1,10 +1,5 @@
-import os
 from flask import Flask, request, jsonify
 import requests
-
-API_ID = os.environ.get("API_ID", "your_default_api_id")
-API_HASH = os.environ.get("API_HASH", "your_default_api_hash")
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "your_default_bot_token")
 
 app = Flask(__name__)
 
@@ -30,6 +25,7 @@ def send_otp():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
 @app.route("/verify-otp", methods=["POST"])
 def verify_otp():
     data = request.json
@@ -53,12 +49,7 @@ def verify_otp():
             }
         )
         res.raise_for_status()
-        return jsonify({
-            "token": res.json().get("token"),
-            "api_id": API_ID,
-            "api_hash": API_HASH,
-            "bot_token": BOT_TOKEN
-        })
+        return jsonify({"token": res.json().get("token")})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
