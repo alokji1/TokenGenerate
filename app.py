@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 import requests
+from .env import API_ID, API_HASH, BOT_TOKEN
+import ClientSession
 
 app = Flask(__name__)
 
